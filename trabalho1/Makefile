@@ -1,25 +1,17 @@
-# Nome do executável
-PROG = programa
+all: main.o fila.o grafo.o
+	gcc main.o fila.o grafo.o -o main
 
-# Compilador e flags
-CC = gcc
-CFLAGS = -Wall -O2
+main.o: main.c grafo.h fila.h
+	gcc -c main.c
 
-# Arquivos fonte e objetos
-SRCS = main.c grafo.c fila.c
-OBJS = $(SRCS:.c=.o)
+fila.o: fila.c fila.h
+	gcc -c fila.c
 
-# Regra padrão: compilar tudo
-all: $(PROG)
+grafo.o: grafo.c grafo.h fila.h
+	gcc -c grafo.c
 
-# Como gerar o executável
-$(PROG): $(OBJS)
-	$(CC) $(CFLAGS) -o $(PROG) $(OBJS)
-
-# Como compilar os arquivos .c em .o
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Limpeza dos arquivos gerados
 clean:
-	rm -f *.o $(PROG)
+	rm -rf *.o main
+
+run: main
+	./main < $(ARQUIVO)
