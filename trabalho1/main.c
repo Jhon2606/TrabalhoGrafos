@@ -13,19 +13,21 @@ int main() {
     printf("Canal atual: %d\n", canalAtual);
     printf("Canal destino: %d\n", canalDestino);
     printf("Canais proibidos:\n");
-    for(int i = 1; i <= 100; i++) {
+    for(int i = 1; i <= MAX; i++) {
         if(proibido[i]) {
-            printf("Canal %d C é proibido.\n", i);
+            printf("%d\n", i);
         }
     }
 
     montandoGrafo(grafo, proibido);
+    printf("Grafo:\n");
+    ImprimirGrafo(grafo);
 
-    int resultado = bLargura(canalAtual, canalDestino, grafo, proibido);
-    if (resultado != -1) {
+    int resultado = bLargura(canalAtual, canalDestino, grafo);
+    if (resultado != NAO_VISITADO) {
         printf("Menor numero de cliques: %d\n", resultado);
     } else {
-        printf("Nao foi possivel alcancar o canal: %d.\n", canalDestino);
+        printf("Nao foi possivel alcancar o canal: %d.\n", canalDestino)    ;
     }
 
     liberarGrafo(grafo);

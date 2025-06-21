@@ -3,16 +3,22 @@
 #include "grafo.h"
 #include "fila.h"
 
-void adicionarAresta(int de, int para, No* grafo[]) {
-    No* novo = malloc(sizeof(No));
-    novo->canal = para;
-    novo->prox = grafo[de];
-    grafo[de] = novo;
+void entradaCanais(int* canalAtual, int* canalDestino, bool proibido[], int* qtdProibidos) {
+    scanf("%d %d %d", canalAtual, canalDestino, qtdProibidos);
+    for(int i = 0; i < *qtdProibidos; i++) {
+        int canal;
+        scanf("%d", &canal);
+        if(canal < 1 || canal > 100) {
+            printf("Canal invalido: %d\n", canal);
+            continue;
+        }
+        proibido[canal] = true;
+    }
 }
 
 void montandoGrafo(No* grafo[], bool proibido[]) {
     int destino;
-    for(int i = 1; i <= 100; i++) {
+    for(int i = 1; i <= MAX; i++) {
         if(proibido[i]) continue;
 
         destino = (i == 100) ? 1 : i + 1;
@@ -38,21 +44,14 @@ void montandoGrafo(No* grafo[], bool proibido[]) {
     }
 }
 
-void entradaCanais(int* canalAtual, int* canalDestino, bool proibido[], int* qtdProibidos) {
-    scanf("%d %d %d", canalAtual, canalDestino, qtdProibidos);
-    for(int i = 1; i <= 100; i++) proibido[i] = false;
-    for(int i = 0; i < *qtdProibidos; i++) {
-        int canal;
-        scanf("%d", &canal);
-        if(canal < 1 || canal > 100) {
-            printf("Canal invalido: %d\n", canal);
-            continue;
-        }
-        proibido[canal] = true;
-    }
+void adicionarAresta(int de, int para, No* grafo[]) {
+    No* novo = malloc(sizeof(No));
+    novo->canal = para;
+    novo->prox = grafo[de];
+    grafo[de] = novo;
 }
 
-int bLargura(int origem, int destino, No* grafo[], bool proibido[]) {
+int bLargura(int origem, int destino, No* grafo[]) {
     int distancia[MAX];
     for(int i = 0; i < MAX; i++) distancia[i] = NAO_VISITADO;
     distancia[origem] = INICIO;
@@ -66,7 +65,7 @@ int bLargura(int origem, int destino, No* grafo[], bool proibido[]) {
         No* adj = grafo[atual];
         while(adj) {
             int vizinho = adj->canal;
-            if(distancia[vizinho] == NAO_VISITADO && !proibido[vizinho]) {
+            if(distancia[vizinho] == NAO_VISITADO) {
                 distancia[vizinho] = distancia[atual] + 1;
                 insereFila(&f, vizinho);
                 if(vizinho == destino) return distancia[destino];
@@ -74,7 +73,19 @@ int bLargura(int origem, int destino, No* grafo[], bool proibido[]) {
             adj = adj->prox;
         }
     }
-    return -1;
+    return NAO_VISITADO;
+}
+
+void ImprimirGrafo(No* grafo[]) {
+    for(int i = 1; i <= MAX; i++) {
+        printf("Canal %d:", i);
+        No* atual = grafo[i];
+        while (atual) {
+            printf("-> %d", atual->canal);
+            atual = atual->prox;
+        }
+        printf("\n");
+    }
 }
 
 void liberarGrafo(No* grafo[]) {
@@ -85,17 +96,5 @@ void liberarGrafo(No* grafo[]) {
             atual = atual->prox;
             free(temp);
         }
-    }
-}
-
-void ImprimirGrafo(No* grafo[]) {
-    for(int i = 1; i <= 100; i++) {
-        printf("Canal %d:", i);
-        No* atual = grafo[i];
-        while (atual) {
-            printf("-> %d", atual->canal);
-            atual = atual->prox;
-        }
-        printf("\n");
     }
 }

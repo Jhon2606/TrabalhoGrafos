@@ -12,10 +12,10 @@ typedef struct No {
     struct No* prox;
 } No;
 
-void adicionarAresta(int de, int para, No* grafo[]);
-void montandoGrafo(No* grafo[], bool proibido[]);
 void entradaCanais(int* canalAtual, int* canalDestino, bool proibido[], int* qtdProibidos);
-int bLargura(int origem, int destino, No* grafo[], bool proibido[]);
+void montandoGrafo(No* grafo[], bool proibido[]);
+void adicionarAresta(int de, int para, No* grafo[]);
+int bLargura(int origem, int destino, No* grafo[]);
 void liberarGrafo(No* grafo[]);
 void ImprimirGrafo(No* grafo[]);
 
