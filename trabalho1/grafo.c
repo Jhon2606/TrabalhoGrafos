@@ -18,7 +18,7 @@ void entradaCanais(int* canalAtual, int* canalDestino, bool proibido[], int* qtd
 
 void montandoGrafo(No* grafo[], bool proibido[]) {
     int destino;
-    for(int i = 1; i <= MAX; i++) {
+    for(int i = 1; i < MAX; i++) {
         if(proibido[i]) continue;
 
         destino = (i == 100) ? 1 : i + 1;
@@ -77,7 +77,7 @@ int bLargura(int origem, int destino, No* grafo[]) {
 }
 
 void ImprimirGrafo(No* grafo[]) {
-    for(int i = 1; i <= MAX; i++) {
+    for(int i = 1; i < MAX; i++) {
         printf("Canal %d:", i);
         No* atual = grafo[i];
         while (atual) {

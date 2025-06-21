@@ -13,7 +13,7 @@ int main() {
     printf("Canal atual: %d\n", canalAtual);
     printf("Canal destino: %d\n", canalDestino);
     printf("Canais proibidos:\n");
-    for(int i = 1; i <= MAX; i++) {
+    for(int i = 1; i < MAX; i++) {
         if(proibido[i]) {
             printf("%d\n", i);
         }
@@ -27,7 +27,7 @@ int main() {
     if (resultado != NAO_VISITADO) {
         printf("Menor numero de cliques: %d\n", resultado);
     } else {
-        printf("Nao foi possivel alcancar o canal: %d.\n", canalDestino)    ;
+        printf("Nao foi possivel alcancar o canal: %d.\n", canalDestino);
     }
 
     liberarGrafo(grafo);
