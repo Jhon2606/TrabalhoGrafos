@@ -14,6 +14,7 @@ typedef struct No {
 
 void entradaCanais(int* canalAtual, int* canalDestino, bool proibido[], int* qtdProibidos);
 void montandoGrafo(No* grafo[], bool proibido[]);
+int existeVizinho(No* lista, int destino);
 void adicionarAresta(int de, int para, No* grafo[]);
 int bLargura(int origem, int destino, No* grafo[]);
 void liberarGrafo(No* grafo[]);
